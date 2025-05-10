@@ -1,31 +1,35 @@
+"use client";
+
 import "./globals.css"
 import { AppSidebar } from "@/components/app-sidebar"
-import { ChartAreaInteractive } from "@/components/chart-area-interactive"
-import { DataTable } from "@/components/data-table"
-import { SectionCards } from "@/components/section-cards"
 import { SiteHeader } from "@/components/site-header"
+import { SectionCards } from "@/components/section-cards"
+import { UserProfile } from "@/components/user-profile"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
-
-import data from "./data.json"
+import { usePathname } from "next/navigation"
 
 export default function Page() {
-  return (
-    <SidebarProvider>
-      <AppSidebar variant="inset" />
-      <SidebarInset>
-        <SiteHeader />
-        <div className="flex flex-1 flex-col">
-          <div className="flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <SectionCards />
-              <div className="px-4 lg:px-6">
-                <ChartAreaInteractive />
-              </div>
-              
+  const pathname = usePathname();
+
+  const renderContent = () => {
+    switch (pathname) {
+      case "/user_profile":
+        return <UserProfile />;
+      case "/posts":
+        return <div>Posts Content</div>;
+      case "/dashboard":
+        return <div>Dashboard Content</div>;
+      default:
+        return (
+          <>
+            <SectionCards />
+            <div className="px-4 lg:px-6">
+              {/* Default content */}
             </div>
-          </div>
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
-  )
+          </>
+        );
+    }
+  };
+
+  return renderContent();
 }

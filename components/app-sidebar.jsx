@@ -40,17 +40,18 @@ const data = {
       icon: LayoutDashboardIcon,
       color: "bg-purple-500 hover:bg-purple-600 text-white", // Purple button
     },
-    {
-      title: "Team",
-      url: "/team",
-      icon: UsersIcon,
-      color: "bg-blue-500 hover:bg-blue-600 text-white", // Blue button
-    },
+   
   ],
 };
 
 export function AppSidebar({ ...props }) {
   const router = useRouter(); // Initialize useRouter
+  const [activeButton, setActiveButton] = React.useState(null);
+
+  const handleButtonClick = (item) => {
+    setActiveButton(item.title);
+    router.push(item.url);
+  };
 
   return (
     <Sidebar
@@ -76,8 +77,10 @@ export function AppSidebar({ ...props }) {
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
                 asChild
-                className={`w-full flex items-center gap-2 justify-start shadow-md hover:shadow-lg rounded-lg p-3 ${item.color}`}
-                onClick={() => router.push(item.url)} // Navigate to the specified URL
+                className={`w-full flex items-center gap-2 justify-start shadow-md hover:shadow-lg rounded-lg p-3 ${
+                  item.color
+                } ${activeButton === item.title ? "ring-2 ring-offset-2 ring-offset-white ring-black" : ""}`}
+                onClick={() => handleButtonClick(item)}
               >
                 <Button>
                   <item.icon className="h-5 w-5" />
