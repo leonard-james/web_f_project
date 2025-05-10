@@ -36,7 +36,7 @@ export default function Dashboard() {
   const chartOptions = {
     chart: {
       type: "bar",
-      height: 350,
+      height: 400,
     },
     plotOptions: {
       bar: {
@@ -62,30 +62,35 @@ export default function Dashboard() {
   ];
 
   return (
-    <main className="p-4 md:p-8 lg:p-12 w-full min-h-screen flex flex-col items-center">
-      <h1 className="text-4xl font-bold mb-10 text-center w-full">Dashboard</h1>
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
-        <div className="p-6 border rounded shadow text-center w-full">
-          <h2 className="text-lg font-semibold">Total Users</h2>
-          <p className="text-2xl font-bold">{userCount}</p>
+    <main className="p-6 md:p-8 lg:p-10 flex flex-col items-center w-full min-h-screen">
+      <div className="w-full mx-auto">
+        <h1 className="text-4xl font-bold mb-10 text-center">Dashboard</h1>
+        <div className="w-full flex flex-col md:flex-row gap-6 mb-10">
+          <div className="flex-1 p-6 border rounded shadow text-center">
+            <h2 className="text-lg font-semibold">Total Users</h2>
+            <p className="text-2xl font-bold">{userCount}</p>
+          </div>
+          <div className="flex-1 p-6 border rounded shadow text-center">
+            <h2 className="text-lg font-semibold">Total Posts</h2>
+            <p className="text-2xl font-bold">{postCount}</p>
+          </div>
+          <div className="flex-1 p-6 border rounded shadow text-center">
+            <h2 className="text-lg font-semibold">Total Comments</h2>
+            <p className="text-2xl font-bold">{commentCount}</p>
+          </div>
         </div>
-        <div className="p-6 border rounded shadow text-center w-full">
-          <h2 className="text-lg font-semibold">Total Posts</h2>
-          <p className="text-2xl font-bold">{postCount}</p>
+        <div className="w-full p-6 border rounded shadow">
+          <h2 className="text-lg font-semibold mb-4 w-full text-center">Visualization</h2>
+          <div className="w-full" style={{ minHeight: 420 }}>
+            <ReactApexChart
+              options={chartOptions}
+              series={chartSeries}
+              type="bar"
+              height={400}
+              width="100%"
+            />
+          </div>
         </div>
-        <div className="p-6 border rounded shadow text-center w-full">
-          <h2 className="text-lg font-semibold">Total Comments</h2>
-          <p className="text-2xl font-bold">{commentCount}</p>
-        </div>
-      </div>
-      <div className="w-full p-6 border rounded shadow">
-        <h2 className="text-lg font-semibold mb-4">Visualization</h2>
-        <ReactApexChart
-          options={chartOptions}
-          series={chartSeries}
-          type="bar"
-          height={350}
-        />
       </div>
     </main>
   );

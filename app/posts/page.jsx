@@ -19,43 +19,40 @@ export default function PostsPage() {
   const currentPosts = posts.slice(startIdx, startIdx + postsPerPage);
 
   return (
-    <div className="w-full p-8 md:p-16 flex flex-col items-center">
-      <div className="rounded-lg border bg-card p-8 shadow-sm w-full max-w-3xl">
-        <h2 className="text-4xl font-bold mb-10 text-center">Posts</h2>
-        <div className="space-y-6">
-          {currentPosts.map((post) => (
-            <div key={post.id} className="p-4 border rounded shadow-sm">
-              <h3 className="text-lg font-semibold mb-2">{post.title}</h3>
-              <p className="text-gray-700">{post.body}</p>
-            </div>
-          ))}
-        </div>
-        {/* Pagination Controls */}
-        <div className="flex justify-center mt-8 gap-2">
+    <div className="w-full min-h-screen flex flex-col items-center justify-start px-2 md:px-4 lg:px-8 py-6">
+      <h2 className="text-4xl font-bold mb-10 text-center w-full">Posts</h2>
+      <div className="w-full max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-10">
+        {currentPosts.map((post) => (
+          <div key={post.id} className="p-6 border rounded shadow-sm w-full h-full flex flex-col justify-center items-center">
+            <h3 className="text-lg font-semibold text-center">{post.title}</h3>
+          </div>
+        ))}
+      </div>
+      {/* Pagination Controls */}
+      <div className="flex justify-center mt-8 gap-2 w-full">
+        <button
+          className="px-4 py-2 rounded border bg-white shadow disabled:opacity-50"
+          onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </button>
+        {Array.from({ length: totalPages }, (_, i) => (
           <button
-            className="px-4 py-2 rounded border bg-white shadow disabled:opacity-50"
-            onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-            disabled={currentPage === 1}
+            key={i + 1}
+            className={`px-3 py-2 rounded border shadow ${currentPage === i + 1 ? "bg-blue-500 text-white" : "bg-white"}`}
+            onClick={() => setCurrentPage(i + 1)}
           >
-            Previous
+            {i + 1}
           </button>
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i + 1}
-              className={`px-3 py-2 rounded border shadow ${currentPage === i + 1 ? "bg-blue-500 text-white" : "bg-white"}`}
-              onClick={() => setCurrentPage(i + 1)}
-            >
-              {i + 1}
-            </button>
-          ))}
-          <button
-            className="px-4 py-2 rounded border bg-white shadow disabled:opacity-50"
-            onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
-        </div>
+        ))}
+        <button
+          className="px-4 py-2 rounded border bg-white shadow disabled:opacity-50"
+          onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
       </div>
     </div>
   );

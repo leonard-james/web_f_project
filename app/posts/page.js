@@ -19,11 +19,11 @@ export default function PostsPage() {
   const currentPosts = posts.slice(startIdx, startIdx + postsPerPage);
 
   return (
-    <div className="w-full p-4 md:p-8 lg:p-12 flex flex-col items-center min-h-screen">
+    <div className="w-full min-h-screen flex flex-col items-center justify-start px-2 md:px-4 lg:px-8 py-6">
       <h2 className="text-4xl font-bold mb-10 text-center w-full">Posts</h2>
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-10">
+      <div className="w-full max-w-none grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-10">
         {currentPosts.map((post) => (
-          <div key={post.id} className="p-6 border rounded shadow-sm w-full">
+          <div key={post.id} className="p-6 border rounded shadow-sm w-full h-full flex flex-col justify-between">
             <h3 className="text-lg font-semibold mb-2">{post.title}</h3>
             <p className="text-gray-700">{post.body}</p>
           </div>

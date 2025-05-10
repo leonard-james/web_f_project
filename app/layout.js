@@ -28,7 +28,7 @@ export default function RootLayout({ children }) {
           <div className="flex min-h-screen">
             <div className="flex-1">
               <SiteHeader />
-              <main className="p-6 md:p-8 lg:p-10 flex flex-col items-center">
+              <main className="p-6 md:p-8 lg:p-10 flex flex-col items-center w-full">
                 {children}
               </main>
             </div>
