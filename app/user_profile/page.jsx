@@ -17,6 +17,17 @@ export default function UserProfile() {
   const [selectedPost, setSelectedPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [loadingComments, setLoadingComments] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  // Prevent background scroll when modal is open
+  React.useEffect(() => {
+    if (modalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [modalOpen]);
 
   // Fetch users from JSON Placeholder
   useEffect(() => {
@@ -97,7 +108,7 @@ export default function UserProfile() {
               <div
                 key={user.id}
                 className="p-6 border rounded-xl cursor-pointer hover:bg-gray-50 shadow-md transition-all duration-200 text-center flex flex-col items-center justify-center min-h-[180px]"
-                onClick={() => setSelectedUser(user)}
+                onClick={() => { setSelectedUser(user); setModalOpen(true); }}
               >
                 <p className="font-semibold text-lg mb-2">{user.name}</p>
                 <p className="text-base text-gray-500">@{user.username}</p>
@@ -204,6 +215,150 @@ export default function UserProfile() {
                                   <p className="text-gray-600">{post.body}</p>
                                 </div>
                                 
+                                <div className="mt-6">
+                                  <div className="flex items-center justify-between mb-4">
+                                    <h5 className="font-semibold text-lg">Comments</h5>
+                                    <span className="text-sm text-gray-500">{comments.length} comments</span>
+                                  </div>
+                                  {loadingComments ? (
+                                    <div className="flex justify-center py-4">
+                                      <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-blue-500"></div>
+                                    </div>
+                                  ) : (
+                                    <div className="space-y-4">
+                                      {comments.map((comment) => (
+                                        <div 
+                                          key={comment.id} 
+                                          className="bg-white p-4 rounded-lg border hover:shadow-sm transition-shadow duration-200"
+                                        >
+                                          <div className="flex items-center gap-2 mb-2">
+                                            <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                                              <span className="text-blue-600 font-medium text-sm">
+                                                {comment.name.charAt(0)}
+                                              </span>
+                                            </div>
+                                            <div>
+                                              <p className="font-medium text-sm text-gray-900">{comment.name}</p>
+                                              <p className="text-xs text-gray-500">{comment.email}</p>
+                                            </div>
+                                          </div>
+                                          <p className="text-sm text-gray-600 ml-10">{comment.body}</p>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Modal for User Details */}
+      {modalOpen && selectedUser && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/20"
+          onClick={e => {
+            if (e.target === e.currentTarget) {
+              setModalOpen(false);
+              setSelectedUser(null);
+              setSelectedPost(null);
+              setComments([]);
+            }
+          }}
+        >
+          <div className="relative max-w-screen-xl w-[95vw] mx-auto bg-white border rounded-2xl shadow-lg pt-12 p-8 animate-fadeIn">
+            <button
+              className="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-3xl font-bold px-4 py-2 rounded-full focus:outline-none z-50 bg-white/80 shadow"
+              onClick={() => { setModalOpen(false); setSelectedUser(null); setSelectedPost(null); setComments([]); }}
+              title="Close"
+            >
+              &times;
+            </button>
+            <div className="space-y-8">
+              <div className="border-b pb-6">
+                <h2 className="text-3xl font-bold">{selectedUser.name}</h2>
+                <p className="text-xl text-gray-500 mt-2">@{selectedUser.username}</p>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                  <div className="bg-gray-50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold mb-4">Contact Information</h3>
+                    <p className="mb-3"><strong>Email:</strong> {selectedUser.email}</p>
+                    <p className="mb-3"><strong>Phone:</strong> {selectedUser.phone}</p>
+                    <p className="mb-3">
+                      <strong>Website:</strong>{" "}
+                      <a
+                        href={`http://${selectedUser.website}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-500 hover:text-blue-700"
+                      >
+                        {selectedUser.website}
+                      </a>
+                    </p>
+                  </div>
+                  <div className="bg-gray-50 p-6 rounded-lg">
+                    <h3 className="text-xl font-semibold mb-4">Address</h3>
+                    <p className="mb-4">
+                      {selectedUser.address.suite}, {selectedUser.address.street}<br />
+                      {selectedUser.address.city}, {selectedUser.address.zipcode}
+                    </p>
+                    <div className="rounded-lg overflow-hidden">
+                      <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
+                        <GoogleMap
+                          mapContainerStyle={containerStyle}
+                          center={mapCenter}
+                          zoom={15}
+                        >
+                          <Marker position={mapCenter} />
+                        </GoogleMap>
+                      </LoadScript>
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <h3 className="text-2xl font-semibold">Posts</h3>
+                  {loading ? (
+                    <div className="flex justify-center py-8">
+                      <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 gap-4">
+                      {posts.map((post) => (
+                        <div key={post.id} className="border rounded-lg overflow-hidden">
+                          <button
+                            onClick={() => handlePostClick(post)}
+                            className={`w-full text-left p-4 hover:bg-gray-50 transition-all duration-300 flex items-center justify-between ${
+                              selectedPost?.id === post.id ? 'bg-gray-50' : ''
+                            }`}
+                          >
+                            <h4 className="font-medium text-lg">{post.title}</h4>
+                            <div 
+                              className={`ml-4 p-1 rounded-full transition-transform duration-300 ${
+                                selectedPost?.id === post.id ? 'rotate-180' : ''
+                              }`}
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                              </svg>
+                            </div>
+                          </button>
+                          {selectedPost?.id === post.id && (
+                            <div className="border-t bg-gray-50">
+                              <div className="p-6">
+                                <div className="mb-4">
+                                  <h5 className="font-semibold text-lg mb-2">Post Content</h5>
+                                  <p className="text-gray-600">{post.body}</p>
+                                </div>
                                 <div className="mt-6">
                                   <div className="flex items-center justify-between mb-4">
                                     <h5 className="font-semibold text-lg">Comments</h5>

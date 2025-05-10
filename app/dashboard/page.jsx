@@ -64,7 +64,7 @@ export default function Dashboard() {
   return (
     <main className="p-6 md:p-8 lg:p-10 flex flex-col items-center w-full min-h-screen">
       <h1 className="text-4xl font-bold mb-10 text-center w-full">Dashboard</h1>
-      <div className="w-full flex flex-col md:flex-row gap-6 mb-10">
+      <div className="flex flex-col md:flex-row gap-6 mb-10 max-w-screen-md mx-auto w-full justify-center">
         <div className="flex-1 p-6 border rounded shadow text-center">
           <h2 className="text-lg font-semibold">Total Users</h2>
           <p className="text-2xl font-bold">{userCount}</p>
@@ -78,7 +78,7 @@ export default function Dashboard() {
           <p className="text-2xl font-bold">{commentCount}</p>
         </div>
       </div>
-      <div className="w-full p-6 border rounded shadow">
+      <div className="p-6 border rounded shadow max-w-screen-md mx-auto w-full">
         <h2 className="text-lg font-semibold mb-4 w-full text-center">Visualization</h2>
         <div className="w-full" style={{ minHeight: 420 }}>
           <ReactApexChart
