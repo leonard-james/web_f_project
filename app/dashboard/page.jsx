@@ -62,34 +62,32 @@ export default function Dashboard() {
   ];
 
   return (
-    <main className="p-6 border rounded shadow-sm w-full h-full flex flex-col justify-center items-center">
-      <div className="w-full mx-auto">
-        <h1 className="text-4xl font-bold mb-10 text-center w-full">Dashboard</h1>
-        <div className="w-full flex flex-col md:flex-row gap-6 mb-10">
-          <div className="flex-1 p-6 border rounded shadow text-center">
-            <h2 className="text-lg font-semibold">Total Users</h2>
-            <p className="text-2xl font-bold">{userCount}</p>
-          </div>
-          <div className="flex-1 p-6 border rounded shadow text-center">
-            <h2 className="text-lg font-semibold">Total Posts</h2>
-            <p className="text-2xl font-bold">{postCount}</p>
-          </div>
-          <div className="flex-1 p-6 border rounded shadow text-center">
-            <h2 className="text-lg font-semibold">Total Comments</h2>
-            <p className="text-2xl font-bold">{commentCount}</p>
-          </div>
+    <main className="p-6 md:p-8 lg:p-10 flex flex-col items-center w-full min-h-screen">
+      <h1 className="text-4xl font-bold mb-10 text-center w-full">Dashboard</h1>
+      <div className="w-full flex flex-col md:flex-row gap-6 mb-10">
+        <div className="flex-1 p-6 border rounded shadow text-center">
+          <h2 className="text-lg font-semibold">Total Users</h2>
+          <p className="text-2xl font-bold">{userCount}</p>
         </div>
-        <div className="w-full p-6 border rounded shadow">
-          <h2 className="text-lg font-semibold mb-4 w-full text-center">Visualization</h2>
-          <div className="w-full" style={{ minHeight: 420 }}>
-            <ReactApexChart
-              options={chartOptions}
-              series={chartSeries}
-              type="bar"
-              height={400}
-              width="100%"
-            />
-          </div>
+        <div className="flex-1 p-6 border rounded shadow text-center">
+          <h2 className="text-lg font-semibold">Total Posts</h2>
+          <p className="text-2xl font-bold">{postCount}</p>
+        </div>
+        <div className="flex-1 p-6 border rounded shadow text-center">
+          <h2 className="text-lg font-semibold">Total Comments</h2>
+          <p className="text-2xl font-bold">{commentCount}</p>
+        </div>
+      </div>
+      <div className="w-full p-6 border rounded shadow">
+        <h2 className="text-lg font-semibold mb-4 w-full text-center">Visualization</h2>
+        <div className="w-full" style={{ minHeight: 420 }}>
+          <ReactApexChart
+            options={chartOptions}
+            series={chartSeries}
+            type="bar"
+            height={400}
+            width="100%"
+          />
         </div>
       </div>
     </main>
