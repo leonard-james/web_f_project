@@ -26,23 +26,23 @@ export default function UserProfile() {
   }, [selectedUser]);
 
   return (
-    <div className="p-4">
+    <div className="w-full h-full min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center">
       {!selectedUser ? (
         // List view of users
-        <div>
-          <h2 className="text-lg font-semibold mb-4">Users</h2>
-          <ul className="space-y-2">
-            {users.map((user) => (
-              <li
+        <div className="w-full h-full flex flex-col items-center justify-center">
+          <h2 className="text-3xl font-bold mb-10 text-center w-full">Users</h2>
+          <div className="w-full h-full max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 content-center items-center justify-items-center">
+            {users.slice(0, 10).map((user) => (
+              <div
                 key={user.id}
-                className="p-2 border rounded cursor-pointer hover:bg-gray-100"
+                className="p-8 border rounded-xl cursor-pointer hover:bg-gray-100 shadow-lg text-center flex flex-col items-center justify-center w-full h-full min-h-[180px]"
                 onClick={() => setSelectedUser(user)}
               >
-                <p className="font-medium">{user.name}</p>
-                <p className="text-sm text-gray-500">@{user.username}</p>
-              </li>
+                <p className="font-semibold text-lg mb-2">{user.name}</p>
+                <p className="text-base text-gray-500">@{user.username}</p>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       ) : (
         // Detailed view of the selected user
