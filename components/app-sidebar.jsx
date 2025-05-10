@@ -1,14 +1,16 @@
 "use client";
 
 import * as React from "react";
+import { useRouter } from "next/navigation"; // Import useRouter
+import { Button } from "@/components/ui/button"; // Import your custom Button component
+
 import {
   ArrowUpCircleIcon,
-  BarChartIcon,
   FileTextIcon,
   UsersIcon,
+  LayoutDashboardIcon,
 } from "lucide-react";
 
-import { NavMain } from "@/components/nav-main";
 import {
   Sidebar,
   SidebarContent,
@@ -22,50 +24,70 @@ const data = {
   navMain: [
     {
       title: "User Profile",
-      url: "#",
+      url: "/user_profile",
       icon: UsersIcon,
+      color: "bg-blue-500 hover:bg-blue-600 text-white", // Blue button
     },
     {
       title: "Posts",
-      url: "#",
+      url: "/posts",
       icon: FileTextIcon,
+      color: "bg-green-500 hover:bg-green-600 text-white", // Green button
     },
     {
-      title: "Charts",
-      url: "#",
-      icon: BarChartIcon,
+      title: "Dashboard",
+      url: "/dashboard",
+      icon: LayoutDashboardIcon,
+      color: "bg-purple-500 hover:bg-purple-600 text-white", // Purple button
     },
     {
       title: "Team",
-      url: "#",
+      url: "/team",
       icon: UsersIcon,
+      color: "bg-blue-500 hover:bg-blue-600 text-white", // Blue button
     },
   ],
 };
 
-export function AppSidebar(props) {
+export function AppSidebar({ ...props }) {
+  const router = useRouter(); // Initialize useRouter
+
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar
+      className={`fixed top-0 left-0 z-40 h-screen w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out ${
+        props.variant === "inset" ? "translate-x-0" : "-translate-x-full"
+      }`}
+      {...props}
+    >
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
-            >
-              <a href="#">
-                <ArrowUpCircleIcon className="h-5 w-5" />
-                <span className="text-base font-semibold">ViewPoint</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <div className="flex gap-3 mb-6">
+          <ArrowUpCircleIcon className="h-6 w-6 shrink-0" />
+          <div className="flex flex-col">
+            <span className="text-base font-semibold leading-tight">ViewPoint</span>
+            <div className="text-sm text-gray-500 leading-normal">
+              <p>User Profiles, Posts & Visual Insights</p>
+            </div>
+          </div>
+        </div>
       </SidebarHeader>
       <SidebarContent>
-        {/* Use only NavMain for navigation */}
-        <NavMain items={data.navMain} />
+        <SidebarMenu>
+          {data.navMain.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton
+                asChild
+                className={`w-full flex items-center gap-2 justify-start shadow-md hover:shadow-lg rounded-lg p-3 ${item.color}`}
+                onClick={() => router.push(item.url)} // Navigate to the specified URL
+              >
+                <Button>
+                  <item.icon className="h-5 w-5" />
+                  <span>{item.title}</span>
+                </Button>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
       </SidebarContent>
-      {/* Removed SidebarFooter containing NavUser */}
     </Sidebar>
   );
 }

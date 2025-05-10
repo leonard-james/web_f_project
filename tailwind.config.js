@@ -6,13 +6,13 @@ module.exports = {
     "./components/**/*.{js,jsx,ts,tsx}", // Include all files in the `components` folder
   ],
   theme: {
-    extend: {
-      // Add customizations here if needed
-    },
+    extend: {},
     container: {
       center: true,
       padding: "1rem",
     },
   },
-  plugins: [plugin], // Add the container queries plugin
+  plugins: [
+    require("@tailwindcss/container-queries"), // Add this plugin
+  ],
 };
