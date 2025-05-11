@@ -21,28 +21,16 @@ export default function Page() {
       default:
         return (
           <div className="flex items-center justify-center min-h-screen bg-gray-50">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-7xl flex flex-col lg:flex-row overflow-hidden mx-auto">
-              {/* Left: Icon Image */}
-              <div className="w-full lg:w-1/2 h-72 lg:h-auto p-10 flex items-center justify-center">
-                <img
-                  src="/main-page.ico"
-                  alt="Main page icon"
-                  className="w-32 h-32 object-contain"
-                />
-              </div>
-
-              {/* Right: Description */}
-              <div className="w-full lg:w-1/2 p-10 flex flex-col justify-center">
-                <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-                  Final Project: Dynamic Web Application using Next.js and Tailwind CSS
-                </h2>
-                <p className="text-gray-700 text-lg lg:text-xl leading-relaxed">
-                  This project is all about building a modern, responsive website using
-                  powerful tools like Next.js and Tailwind CSS. You will practice real-world
-                  skills by connecting to an external API and presenting the data cleanly and
-                  interactively.
-                </p>
-              </div>
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl flex flex-col items-center overflow-hidden mx-auto p-10">
+              <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-center">
+                Final Project: Dynamic Web Application using Next.js and Tailwind CSS
+              </h2>
+              <p className="text-gray-700 text-lg lg:text-xl leading-relaxed text-center">
+                This project is all about building a modern, responsive website using
+                powerful tools like Next.js and Tailwind CSS. You will practice real-world
+                skills by connecting to an external API and presenting the data cleanly and
+                interactively.
+              </p>
             </div>
           </div>
         );
