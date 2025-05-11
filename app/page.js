@@ -26,8 +26,8 @@ export default function Page() {
               {/* Left: Image */}
               <div className="w-full lg:w-1/2 h-72 lg:h-auto p-10">
                 <Image
-                  src="/main-page.png" // Correct path
-                  alt="Main page"
+                  src="/main-page.ico" // Updated to use the .ico file
+                  alt="Main page icon"
                   layout="responsive"
                   width={600}
                   height={400}
