@@ -71,11 +71,7 @@ Team Member	        What They Worked On
 Bhea Marie Gheul	Give a suggestion to the overall design of the website.
 Revin Gestiada		Give a suggestion to the overall design of the website.
 Celena Jean Scott	Give a suggestion to the overall design of the website.
-<<<<<<< HEAD
 Leonard James Gobris	Made the nextjs app template and connects it to GitHub repository. Copy the dashboard type template and edited it. Made 			both backend and frontend developing. Uploading to vercel.
-=======
-Leonard James Gobris	Made the nextjs app template and connects it to GitHub repository. Copy the dashboard type template and edited it. Made both backend and frontend developing. Uploading to vercel.
->>>>>>> origin/master
 
 🌐 Live Demo
 🔗 Deployed on Vercel: https://viewpoint-sage.vercel.app/
