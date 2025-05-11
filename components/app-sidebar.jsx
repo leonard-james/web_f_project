@@ -1,8 +1,8 @@
 "use client";
 
 import * as React from "react";
-import { useRouter } from "next/navigation"; // Import useRouter
-import { Button } from "@/components/ui/button"; // Import your custom Button component
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 import {
   SidebarTrigger,
@@ -25,33 +25,37 @@ import {
 const data = {
   navMain: [
     {
+      title: "Home",
+      url: "/",
+      icon: HomeIcon,
+      color: "bg-yellow-500 hover:bg-yellow-600 text-white",
+    },
+    {
       title: "User Profile",
       url: "/user_profile",
       icon: UsersIcon,
-      color: "bg-blue-500 hover:bg-blue-600 text-white", // Blue button
+      color: "bg-blue-500 hover:bg-blue-600 text-white",
     },
     {
       title: "Posts",
       url: "/posts",
       icon: FileTextIcon,
-      color: "bg-green-500 hover:bg-green-600 text-white", // Green button
+      color: "bg-green-500 hover:bg-green-600 text-white",
     },
     {
       title: "Dashboard",
       url: "/dashboard",
       icon: LayoutDashboardIcon,
-      color: "bg-purple-500 hover:bg-purple-600 text-white", // Purple button
+      color: "bg-purple-500 hover:bg-purple-600 text-white",
     },
   ],
 };
 
 export function AppSidebar({ ...props }) {
-  const router = useRouter(); // Initialize useRouter
-  const [activeButton, setActiveButton] = React.useState(null);
+  const router = useRouter();
 
-  const handleButtonClick = (item) => {
-    setActiveButton(item.title); // Highlight the active button
-    router.push(item.url); // Redirect to the specified URL
+  const handleNavigation = (url) => {
+    router.push(url); // Navigate to the specified URL
   };
 
   return (
@@ -75,30 +79,12 @@ export function AppSidebar({ ...props }) {
       <div className="my-4" />
       <SidebarContent>
         <SidebarMenu>
-          {/* Home Button */}
-          <SidebarMenuItem key="Home">
-            <SidebarMenuButton
-              className={`w-full flex items-center gap-2 justify-start shadow-md hover:shadow-lg rounded-lg p-3 bg-yellow-500 hover:bg-yellow-600 text-white border-2 border-black mb-3 ${
-                activeButton === "Home" ? "ring-2 ring-offset-2 ring-offset-white ring-black" : ""
-              }`}
-              onClick={() => {
-                setActiveButton("Home");
-                router.push("/"); // Redirect to the home page
-              }}
-            >
-              <HomeIcon className="h-5 w-5" />
-              <span>Home</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-
           {/* Dynamic Buttons for Other Pages */}
           {data.navMain.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
-                className={`w-full flex items-center gap-2 justify-start shadow-md hover:shadow-lg rounded-lg p-3 border-2 border-black mb-3 ${
-                  item.color
-                } ${activeButton === item.title ? "ring-2 ring-offset-2 ring-offset-white ring-black" : ""}`}
-                onClick={() => handleButtonClick(item)}
+                className={`w-full flex items-center gap-2 justify-start shadow-md hover:shadow-lg rounded-lg p-3 border-2 border-black mb-3 ${item.color}`}
+                onClick={() => handleNavigation(item.url)}
               >
                 <item.icon className="h-5 w-5" />
                 <span>{item.title}</span>
