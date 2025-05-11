@@ -9,6 +9,8 @@ import {
   FileTextIcon,
   UsersIcon,
   LayoutDashboardIcon,
+  HomeIcon,
+  EyeIcon,
 } from "lucide-react";
 
 import {
@@ -62,7 +64,7 @@ export function AppSidebar({ ...props }) {
     >
       <SidebarHeader>
         <div className="flex gap-3 mb-6">
-          <ArrowUpCircleIcon className="h-6 w-6 shrink-0" />
+          <EyeIcon className="h-6 w-6 shrink-0" />
           <div className="flex flex-col">
             <span className="text-base font-semibold leading-tight">ViewPoint</span>
             <div className="text-sm text-gray-500 leading-normal">
@@ -71,13 +73,26 @@ export function AppSidebar({ ...props }) {
           </div>
         </div>
       </SidebarHeader>
+      <div className="my-4" />
       <SidebarContent>
         <SidebarMenu>
+          <SidebarMenuItem key="Home">
+            <SidebarMenuButton
+              asChild
+              className={`w-full flex items-center gap-2 justify-start shadow-md hover:shadow-lg rounded-lg p-3 bg-yellow-500 hover:bg-yellow-600 text-white border-2 border-black mb-3 ${activeButton === "Home" ? "ring-2 ring-offset-2 ring-offset-white ring-black" : ""}`}
+              onClick={() => { setActiveButton("Home"); router.push("/"); }}
+            >
+              <Button>
+                <HomeIcon className="h-5 w-5" />
+                <span>Home</span>
+              </Button>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
           {data.navMain.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
                 asChild
-                className={`w-full flex items-center gap-2 justify-start shadow-md hover:shadow-lg rounded-lg p-3 ${
+                className={`w-full flex items-center gap-2 justify-start shadow-md hover:shadow-lg rounded-lg p-3 border-2 border-black mb-3 ${
                   item.color
                 } ${activeButton === item.title ? "ring-2 ring-offset-2 ring-offset-white ring-black" : ""}`}
                 onClick={() => handleButtonClick(item)}
