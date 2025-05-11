@@ -26,11 +26,11 @@ export default function Page() {
               {/* Left: Image */}
               <div className="w-full lg:w-1/2 h-72 lg:h-auto p-10">
                 <Image
-                  src="/main-page.png"
+                  src="/main-page.png" // Correct path
+                  alt="Main page"
                   layout="responsive"
                   width={600}
                   height={400}
-                  alt="Main page"
                   className="w-full h-full object-cover"
                 />
               </div>
