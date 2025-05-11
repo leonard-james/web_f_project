@@ -6,6 +6,8 @@ import { SiteHeader } from "@/components/site-header";
 import { UserProfile } from "@/components/user-profile";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { usePathname } from "next/navigation";
+import Image from 'next/image'
+
 
 export default function Page() {
   const pathname = usePathname();
@@ -26,9 +28,7 @@ export default function Page() {
 
                 {/* Left: Image */}
                 <div className="w-full lg:w-1/2 h-72 lg:h-auto p-10"> {/* Added p-10 */}
-                  <img
-                    src="/main%20pagae.png"
-                    alt="Main Page"
+                  <Image src="/images/example.jpg" alt="Example" width={600} height={400}
                     className="w-full h-full object-cover"
                   />
                 </div>
