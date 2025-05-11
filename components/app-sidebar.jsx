@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"; // Import useRouter
 import { Button } from "@/components/ui/button"; // Import your custom Button component
 
 import {
-  ArrowUpCircleIcon,
+  SidebarTrigger,
   FileTextIcon,
   UsersIcon,
   LayoutDashboardIcon,
