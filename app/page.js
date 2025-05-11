@@ -20,12 +20,12 @@ export default function Page() {
         return <div>Dashboard Content</div>;
       default:
         return (
-          <div className="flex items-center justify-center min-h-screen bg-gray-50">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl flex flex-col items-center overflow-hidden mx-auto p-10">
-              <h2 className="text-3xl lg:text-4xl font-bold mb-6 text-center">
+          <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl flex flex-col items-center text-center p-6 md:p-10">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6">
                 Final Project: Dynamic Web Application using Next.js and Tailwind CSS
               </h2>
-              <p className="text-gray-700 text-lg lg:text-xl leading-relaxed text-center">
+              <p className="text-gray-700 text-base md:text-lg lg:text-xl leading-relaxed">
                 This project is all about building a modern, responsive website using
                 powerful tools like Next.js and Tailwind CSS. You will practice real-world
                 skills by connecting to an external API and presenting the data cleanly and
