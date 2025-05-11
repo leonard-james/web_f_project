@@ -209,40 +209,39 @@ export default function UserProfile() {
                           
                           {selectedPost?.id === post.id && (
                             <div className="border-t bg-gray-50">
-                              <div className="p-6">
-                                <div className="mb-4">
-                                  <h5 className="font-semibold text-lg mb-2">Post Content</h5>
+                              <div className="p-3 md:p-4 text-sm md:text-base max-w-xl mx-auto">
+                                <div className="mb-2">
+                                  <h5 className="font-semibold text-base mb-1">Post Content</h5>
                                   <p className="text-gray-600">{post.body}</p>
                                 </div>
-                                
-                                <div className="mt-6">
-                                  <div className="flex items-center justify-between mb-4">
-                                    <h5 className="font-semibold text-lg">Comments</h5>
-                                    <span className="text-sm text-gray-500">{comments.length} comments</span>
+                                <div className="mt-4">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <h5 className="font-semibold text-base">Comments</h5>
+                                    <span className="text-xs text-gray-500">{comments.length} comments</span>
                                   </div>
                                   {loadingComments ? (
-                                    <div className="flex justify-center py-4">
-                                      <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-blue-500"></div>
+                                    <div className="flex justify-center py-2">
+                                      <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500"></div>
                                     </div>
                                   ) : (
-                                    <div className="space-y-4">
+                                    <div className="space-y-2 max-h-32 overflow-y-auto pr-1">
                                       {comments.map((comment) => (
                                         <div 
                                           key={comment.id} 
-                                          className="bg-white p-4 rounded-lg border hover:shadow-sm transition-shadow duration-200"
+                                          className="bg-white p-2 rounded border hover:shadow-sm transition-shadow duration-200"
                                         >
-                                          <div className="flex items-center gap-2 mb-2">
-                                            <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                                              <span className="text-blue-600 font-medium text-sm">
+                                          <div className="flex items-center gap-2 mb-1">
+                                            <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
+                                              <span className="text-blue-600 font-medium text-xs">
                                                 {comment.name.charAt(0)}
                                               </span>
                                             </div>
                                             <div>
-                                              <p className="font-medium text-sm text-gray-900">{comment.name}</p>
-                                              <p className="text-xs text-gray-500">{comment.email}</p>
+                                              <p className="font-medium text-xs text-gray-900">{comment.name}</p>
+                                              <p className="text-[10px] text-gray-500">{comment.email}</p>
                                             </div>
                                           </div>
-                                          <p className="text-sm text-gray-600 ml-10">{comment.body}</p>
+                                          <p className="text-xs text-gray-600 ml-8">{comment.body}</p>
                                         </div>
                                       ))}
                                     </div>
@@ -275,9 +274,9 @@ export default function UserProfile() {
             }
           }}
         >
-          <div className="relative max-w-screen-xl w-[95vw] mx-auto bg-white border rounded-2xl shadow-lg pt-12 p-8 animate-fadeIn">
+          <div className="relative max-w-4xl w-[95vw] mx-auto bg-white border rounded-2xl shadow-lg p-4 animate-fadeIn max-h-[80vh] overflow-y-auto">
             <button
-              className="absolute top-4 right-4 text-gray-500 hover:text-red-500 text-3xl font-bold px-4 py-2 rounded-full focus:outline-none z-50 bg-white/80 shadow"
+              className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-2xl font-bold px-2 py-1 rounded-full focus:outline-none z-50 bg-white/80 shadow"
               onClick={() => { setModalOpen(false); setSelectedUser(null); setSelectedPost(null); setComments([]); }}
               title="Close"
             >
@@ -354,39 +353,39 @@ export default function UserProfile() {
                           </button>
                           {selectedPost?.id === post.id && (
                             <div className="border-t bg-gray-50">
-                              <div className="p-6">
-                                <div className="mb-4">
-                                  <h5 className="font-semibold text-lg mb-2">Post Content</h5>
+                              <div className="p-3 md:p-4 text-sm md:text-base max-w-xl mx-auto">
+                                <div className="mb-2">
+                                  <h5 className="font-semibold text-base mb-1">Post Content</h5>
                                   <p className="text-gray-600">{post.body}</p>
                                 </div>
-                                <div className="mt-6">
-                                  <div className="flex items-center justify-between mb-4">
-                                    <h5 className="font-semibold text-lg">Comments</h5>
-                                    <span className="text-sm text-gray-500">{comments.length} comments</span>
+                                <div className="mt-4">
+                                  <div className="flex items-center justify-between mb-2">
+                                    <h5 className="font-semibold text-base">Comments</h5>
+                                    <span className="text-xs text-gray-500">{comments.length} comments</span>
                                   </div>
                                   {loadingComments ? (
-                                    <div className="flex justify-center py-4">
-                                      <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-blue-500"></div>
+                                    <div className="flex justify-center py-2">
+                                      <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500"></div>
                                     </div>
                                   ) : (
-                                    <div className="space-y-4">
+                                    <div className="space-y-2 max-h-32 overflow-y-auto pr-1">
                                       {comments.map((comment) => (
                                         <div 
                                           key={comment.id} 
-                                          className="bg-white p-4 rounded-lg border hover:shadow-sm transition-shadow duration-200"
+                                          className="bg-white p-2 rounded border hover:shadow-sm transition-shadow duration-200"
                                         >
-                                          <div className="flex items-center gap-2 mb-2">
-                                            <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                                              <span className="text-blue-600 font-medium text-sm">
+                                          <div className="flex items-center gap-2 mb-1">
+                                            <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
+                                              <span className="text-blue-600 font-medium text-xs">
                                                 {comment.name.charAt(0)}
                                               </span>
                                             </div>
                                             <div>
-                                              <p className="font-medium text-sm text-gray-900">{comment.name}</p>
-                                              <p className="text-xs text-gray-500">{comment.email}</p>
+                                              <p className="font-medium text-xs text-gray-900">{comment.name}</p>
+                                              <p className="text-[10px] text-gray-500">{comment.email}</p>
                                             </div>
                                           </div>
-                                          <p className="text-sm text-gray-600 ml-10">{comment.body}</p>
+                                          <p className="text-xs text-gray-600 ml-8">{comment.body}</p>
                                         </div>
                                       ))}
                                     </div>
