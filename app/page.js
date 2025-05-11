@@ -7,11 +7,9 @@ import { useState } from "react";
 
 export default function Page() {
   const pathname = usePathname();
-  const [isSidebarVisible, setIsSidebarVisible] = useState(true); // Sidebar visibility state
+  const [isSidebarVisible, setIsSidebarVisible] = useState(true);
 
-  const toggleSidebar = () => {
-    setIsSidebarVisible((prev) => !prev); // Toggle the sidebar visibility
-  };
+  const toggleSidebar = () => setIsSidebarVisible((prev) => !prev);
 
   const renderContent = () => {
     switch (pathname) {
@@ -32,10 +30,15 @@ export default function Page() {
         return <div>Dashboard Content</div>;
       default:
         return (
-          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl flex flex-col items-center text-center p-6 md:p-10">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6">
-              Final Project: Dynamic Web Application using Next.js and Tailwind CSS
-            </h2>
+          <div className="bg-white rounded-2xl shadow-2xl w-full max-w-3xl flex flex-col text-left gap-4 p-6 md:p-10">
+            {/* Title with Toggle Button */}
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold">
+                Final Project: Dynamic Web Application using Next.js and Tailwind CSS
+              </h2>
+              
+            </div>
+            {/* Description */}
             <p className="text-gray-700 text-base md:text-lg lg:text-xl leading-relaxed">
               This project is all about building a modern, responsive website using powerful tools like Next.js and Tailwind CSS. You will practice real-world skills by connecting to an external API and presenting the data cleanly and interactively.
             </p>
@@ -45,42 +48,22 @@ export default function Page() {
   };
 
   return (
-    <div className="relative min-h-screen">
-      {/* Sidebar toggle icon */}
-      <button
-        className="absolute top-4 left-4 z-50 p-2 bg-gray-200 rounded-full shadow-md hover:bg-gray-300 transition-all"
-        onClick={toggleSidebar}
-        aria-label="Toggle Sidebar"
+    <div className="relative min-h-screen bg-gray-50">
+      {/* Sidebar */}
+      <div
+        className={`fixed top-0 left-0 h-full z-40 transition-transform duration-300 ${
+          isSidebarVisible ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-gray-700"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M4 6h16M4 12h16m-7 6h7"
-          />
-        </svg>
-      </button>
+        <AppSidebar visible={isSidebarVisible} />
+      </div>
 
-      {/* Sidebar rendered as fixed on the left */}
-      {isSidebarVisible && (
-        <div className="fixed top-0 left-0 h-full w-64 transition-all duration-300">
-          <AppSidebar />
-        </div>
-      )}
-
-      {/* Main content container gets left padding if sidebar is visible */}
-      <div className={`transition-all duration-300 ${isSidebarVisible ? "pl-64" : ""}`}>
-        <div className="flex min-h-screen items-center justify-center">
+      {/* Main Content */}
+      <main className={`transition-all duration-300 ${isSidebarVisible ? "pl-64" : ""}`}>
+        <div className="flex min-h-screen items-center justify-center p-4">
           {renderContent()}
         </div>
-      </div>
+      </main>
     </div>
   );
 }

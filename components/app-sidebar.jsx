@@ -42,7 +42,6 @@ const data = {
       icon: LayoutDashboardIcon,
       color: "bg-purple-500 hover:bg-purple-600 text-white", // Purple button
     },
-   
   ],
 };
 
@@ -51,8 +50,8 @@ export function AppSidebar({ ...props }) {
   const [activeButton, setActiveButton] = React.useState(null);
 
   const handleButtonClick = (item) => {
-    setActiveButton(item.title);
-    router.push(item.url);
+    setActiveButton(item.title); // Highlight the active button
+    router.push(item.url); // Redirect to the specified URL
   };
 
   return (
@@ -76,31 +75,33 @@ export function AppSidebar({ ...props }) {
       <div className="my-4" />
       <SidebarContent>
         <SidebarMenu>
+          {/* Home Button */}
           <SidebarMenuItem key="Home">
             <SidebarMenuButton
-              asChild
-              className={`w-full flex items-center gap-2 justify-start shadow-md hover:shadow-lg rounded-lg p-3 bg-yellow-500 hover:bg-yellow-600 text-white border-2 border-black mb-3 ${activeButton === "Home" ? "ring-2 ring-offset-2 ring-offset-white ring-black" : ""}`}
-              onClick={() => { setActiveButton("Home"); router.push("/"); }}
+              className={`w-full flex items-center gap-2 justify-start shadow-md hover:shadow-lg rounded-lg p-3 bg-yellow-500 hover:bg-yellow-600 text-white border-2 border-black mb-3 ${
+                activeButton === "Home" ? "ring-2 ring-offset-2 ring-offset-white ring-black" : ""
+              }`}
+              onClick={() => {
+                setActiveButton("Home");
+                router.push("/"); // Redirect to the home page
+              }}
             >
-              <Button>
-                <HomeIcon className="h-5 w-5" />
-                <span>Home</span>
-              </Button>
+              <HomeIcon className="h-5 w-5" />
+              <span>Home</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
+
+          {/* Dynamic Buttons for Other Pages */}
           {data.navMain.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
-                asChild
                 className={`w-full flex items-center gap-2 justify-start shadow-md hover:shadow-lg rounded-lg p-3 border-2 border-black mb-3 ${
                   item.color
                 } ${activeButton === item.title ? "ring-2 ring-offset-2 ring-offset-white ring-black" : ""}`}
                 onClick={() => handleButtonClick(item)}
               >
-                <Button>
-                  <item.icon className="h-5 w-5" />
-                  <span>{item.title}</span>
-                </Button>
+                <item.icon className="h-5 w-5" />
+                <span>{item.title}</span>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
