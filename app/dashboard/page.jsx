@@ -43,6 +43,7 @@ export default function Dashboard() {
         horizontal: false,
         columnWidth: "55%",
         endingShape: "rounded",
+        distributed: true,
       },
     },
     dataLabels: {
@@ -51,7 +52,7 @@ export default function Dashboard() {
     xaxis: {
       categories: ["Users", "Posts", "Comments"],
     },
-    colors: ["#1E90FF", "#32CD32", "#FF6347"], // Custom colors for bars
+    colors: ["#2563eb", "#22c55e", "#ef4444"], // Blue, Green, Red
   };
 
   const chartSeries = [
@@ -62,32 +63,34 @@ export default function Dashboard() {
   ];
 
   return (
-    <main className="p-6 md:p-8 lg:p-10 flex flex-col items-center w-full min-h-screen">
-      <h1 className="text-4xl font-bold mb-10 text-center w-full">Dashboard</h1>
-      <div className="flex flex-col md:flex-row gap-6 mb-10 max-w-screen-md mx-auto w-full justify-center">
-        <div className="flex-1 p-6 border rounded shadow text-center">
-          <h2 className="text-lg font-semibold">Total Users</h2>
-          <p className="text-2xl font-bold">{userCount}</p>
+    <main className="ml-60 flex flex-col items-center min-h-screen w-full bg-white">
+      <div className="w-full max-w-4xl mx-auto px-4 md:px-8 py-10 flex flex-col items-center">
+        <h1 className="text-4xl font-bold mb-10 text-center w-full">Dashboard</h1>
+        <div className="flex flex-col md:flex-row gap-6 mb-10 w-full justify-center">
+          <div className="flex-1 p-6 border rounded shadow text-center bg-blue-600 text-white">
+            <h2 className="text-lg font-semibold">Total Users</h2>
+            <p className="text-2xl font-bold">{userCount}</p>
+          </div>
+          <div className="flex-1 p-6 border rounded shadow text-center bg-green-600 text-white">
+            <h2 className="text-lg font-semibold">Total Posts</h2>
+            <p className="text-2xl font-bold">{postCount}</p>
+          </div>
+          <div className="flex-1 p-6 border rounded shadow text-center bg-red-600 text-white">
+            <h2 className="text-lg font-semibold">Total Comments</h2>
+            <p className="text-2xl font-bold">{commentCount}</p>
+          </div>
         </div>
-        <div className="flex-1 p-6 border rounded shadow text-center">
-          <h2 className="text-lg font-semibold">Total Posts</h2>
-          <p className="text-2xl font-bold">{postCount}</p>
-        </div>
-        <div className="flex-1 p-6 border rounded shadow text-center">
-          <h2 className="text-lg font-semibold">Total Comments</h2>
-          <p className="text-2xl font-bold">{commentCount}</p>
-        </div>
-      </div>
-      <div className="p-6 border rounded shadow max-w-screen-md mx-auto w-full">
-        <h2 className="text-lg font-semibold mb-4 w-full text-center">Visualization</h2>
-        <div className="w-full" style={{ minHeight: 420 }}>
-          <ReactApexChart
-            options={chartOptions}
-            series={chartSeries}
-            type="bar"
-            height={400}
-            width="100%"
-          />
+        <div className="p-6 border rounded shadow w-full">
+          <h2 className="text-lg font-semibold mb-4 w-full text-center">Visualization</h2>
+          <div className="w-full" style={{ minHeight: 420 }}>
+            <ReactApexChart
+              options={chartOptions}
+              series={chartSeries}
+              type="bar"
+              height={400}
+              width="100%"
+            />
+          </div>
         </div>
       </div>
     </main>

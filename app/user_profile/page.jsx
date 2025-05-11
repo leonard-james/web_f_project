@@ -274,7 +274,7 @@ export default function UserProfile() {
             }
           }}
         >
-          <div className="relative max-w-4xl w-[95vw] mx-auto bg-white border rounded-2xl shadow-lg p-4 animate-fadeIn max-h-[80vh] overflow-y-auto">
+          <div className="relative w-full max-w-4xl mx-auto bg-white border rounded-2xl shadow-lg p-4 md:p-8 animate-fadeIn max-h-[80vh] overflow-y-auto">
             <button
               className="absolute top-2 right-2 text-gray-500 hover:text-red-500 text-2xl font-bold px-2 py-1 rounded-full focus:outline-none z-50 bg-white/80 shadow"
               onClick={() => { setModalOpen(false); setSelectedUser(null); setSelectedPost(null); setComments([]); }}
