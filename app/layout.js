@@ -17,16 +17,14 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "ViewPoint",
   description: "ViewPoint - User Profiles, Posts & Visual Insights",
-  
+  icons: {
+    icon: "/eyeicon.ico", // ✅ Favicon
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-      <link rel="icon" href="/eye-icon.png" type="image/png" />
-        <title>ViewPoint</title>
-      </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SidebarProvider>
           <AppSidebar variant="inset" />
