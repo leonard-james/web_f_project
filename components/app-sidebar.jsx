@@ -31,7 +31,7 @@ const data = {
       color: "bg-yellow-500 hover:bg-yellow-600 text-white",
     },
     {
-      title: "User Profile",
+      title: "Users",
       url: "/user_profile",
       icon: UsersIcon,
       color: "bg-blue-500 hover:bg-blue-600 text-white",
