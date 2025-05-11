@@ -9,6 +9,10 @@ export default function Page() {
   const pathname = usePathname();
   const [isSidebarVisible, setIsSidebarVisible] = useState(true); // Sidebar visibility state
 
+  const toggleSidebar = () => {
+    setIsSidebarVisible((prev) => !prev); // Toggle the sidebar visibility
+  };
+
   const renderContent = () => {
     switch (pathname) {
       case "/user_profile":
@@ -42,6 +46,28 @@ export default function Page() {
 
   return (
     <div className="relative min-h-screen">
+      {/* Sidebar toggle icon */}
+      <button
+        className="absolute top-4 left-4 z-50 p-2 bg-gray-200 rounded-full shadow-md hover:bg-gray-300 transition-all"
+        onClick={toggleSidebar}
+        aria-label="Toggle Sidebar"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-gray-700"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M4 6h16M4 12h16m-7 6h7"
+          />
+        </svg>
+      </button>
+
       {/* Sidebar rendered as fixed on the left */}
       {isSidebarVisible && (
         <div className="fixed top-0 left-0 h-full w-64 transition-all duration-300">
