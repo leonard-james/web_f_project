@@ -30,6 +30,7 @@ export default function Page() {
                   layout="responsive"
                   width={600}
                   height={400}
+                  alt="Main page"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -40,7 +41,7 @@ export default function Page() {
                   Final Project: Dynamic Web Application using Next.js and Tailwind CSS
                 </h2>
                 <p className="text-gray-700 text-lg lg:text-xl leading-relaxed">
-                  {`This project is all about building a modern, responsive website using powerful tools like Next.js and Tailwind CSS. You&#39;ll practice real-world skills by connecting to an external API and presenting the data cleanly and interactively.`}
+                  {`This project is all about building a modern, responsive website using powerful tools like Next.js and Tailwind CSS. You will practice real-world skills by connecting to an external API and presenting the data cleanly and interactively.`}
                 </p>
               </div>
             </div>
