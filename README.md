@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# WebTech Final Project – Dynamic Web Application
 
-## Getting Started
+## 📌 Project Description
 
-First, run the development server:
+For our Web Systems and Technologies final project, we built a **dynamic web application** using **Next.js**, **Tailwind CSS**, and **ShadCN UI**. Our goal was to apply our skills in frontend development, API integration, and data visualization in a real-world scenario.
+
+We used the [JSONPlaceholder API](https://jsonplaceholder.typicode.com/) to fetch and display users, posts, and comments. We implemented interactive user profiles with **Mapbox** to show address locations and added **ApexCharts** to visualize app data dynamically.
+
+This project helped us understand the full process of planning, developing, styling, integrating APIs, and deploying a responsive and modern web application.
+
+---
+
+## ⚙️ Setup and Installation Instructions
+
+Here’s how we built and ran the project from scratch:
+
+### 🧩 Requirements
+
+Make sure you have the following installed:
+
+- Node.js (v18 or higher)
+- npm (v9 or higher)
+- Git
+
+---
+
+### 🚀 Step-by-Step Setup (As We Did It)
+
+#### 1. **Create a New Next.js Project**
+
+We started with a fresh Next.js app using the App Router:
 
 ```bash
+npx create-next-app@latest webtech-final-project
+cd webtech-final-project
+
+We followed the official Tailwind setup:
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+
+We used ShadCN UI for component styling:
+npx shadcn-ui@latest init
+
+Then we added components like this:
+npx shadcn-ui@latest add button
+npx shadcn-ui@latest add card
+npx shadcn-ui@latest add pagination
+npx shadcn-ui@latest add chart
+npx shadcn-ui@latest add sidebar
+and many more.
+
+We used React Query for powerful and optimized data fetching:
+npm install @tanstack/react-query
+
+Install ApexCharts for Visualization
+npm install apexcharts react-apexcharts
+
+We used the official Google Maps JavaScript API loader:
+npm install @react-google-maps/api
+
+Run the Project Locally
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Built for Production
+npm run build
+npm start
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+👨‍💻 Our Team Contributions
+Team Member	        What They Worked On
+Bhea Marie Gheul	Give a suggestion to the overall design of the website.
+Revin Gestiada		Give a suggestion to the overall design of the website.
+Celena Jean Scott	Give a suggestion to the overall design of the website.
+Leonard James Gobris	Made the nextjs app template and connects it to GitHub repository. Copy the dashboard type template and edited it. Made 			both backend and frontend developing. Uploading to vercel.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+🌐 Live Demo
+🔗 Deployed on Vercel: https://viewpoint-sage.vercel.app/
