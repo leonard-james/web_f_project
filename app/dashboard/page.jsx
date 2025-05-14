@@ -66,8 +66,8 @@ export default function Dashboard() {
 
   return (
     <div className="w-full h-full min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center">
-    <main className="flex w-full h-[calc(100vh-48px)] justify-center items-center bg-gray-100">
-      <div className="w-full h-full max-w-4xl p-4 md:p-10 bg-white rounded shadow flex flex-col items-center justify-center">
+    <main className="flex flex-1 justify-center items-center bg-gray-100 h-[calc(100vh-48px)]">
+      <div className="max-w-4xl w-full p-4 md:p-10 bg-white rounded shadow flex flex-col items-center justify-center h-full">
         <h1 className="text-2xl font-bold mb-4 text-center">Dashboard</h1>
         <div className="flex flex-col items-center w-full">
           <div className="flex flex-col md:flex-row justify-center gap-4 mb-8 w-full">
