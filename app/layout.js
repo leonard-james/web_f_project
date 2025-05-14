@@ -25,13 +25,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}>
         <SidebarProvider>
-          <div className="flex min-h-screen flex-col md:flex-row">
-            <AppSidebar variant="inset" />
+          <div className="flex min-h-screen flex-col md:flex-row bg-gray-100">
+            <AppSidebar />
             <div className="flex-1 flex flex-col">
               <SiteHeader />
-              <main className="p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col items-center w-full max-w-[100vw] overflow-x-hidden">
+              <main className="p-6 md:p-8 lg:p-10 flex flex-col items-center w-full">
                 {children}
               </main>
             </div>

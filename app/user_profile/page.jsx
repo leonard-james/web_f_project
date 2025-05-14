@@ -107,11 +107,11 @@ export default function UserProfile() {
             {users.map((user) => (
               <div
                 key={user.id}
-                className="p-6 border rounded-xl cursor-pointer hover:bg-gray-50 shadow-md transition-all duration-200 text-center flex flex-col items-center justify-center min-h-[180px]"
+                className="bg-blue-100 text-blue-900 p-6 border border-blue-300 rounded-xl cursor-pointer hover:bg-blue-200 shadow-md transition-all duration-200 text-center flex flex-col items-center justify-center min-h-[180px]"
                 onClick={() => { setSelectedUser(user); setModalOpen(true); }}
               >
                 <p className="font-semibold text-lg mb-2">{user.name}</p>
-                <p className="text-base text-gray-500">@{user.username}</p>
+                <p className="text-base text-blue-700">@{user.username}</p>
               </div>
             ))}
           </div>
@@ -188,66 +188,41 @@ export default function UserProfile() {
                   ) : (
                     <div className="grid grid-cols-1 gap-4">
                       {posts.map((post) => (
-                        <div key={post.id} className="border rounded-lg overflow-hidden">
+                        <div key={post.id} className="bg-green-100 text-green-900 border border-green-300 rounded-lg overflow-hidden">
                           <button
                             onClick={() => handlePostClick(post)}
-                            className={`w-full text-left p-4 hover:bg-gray-50 transition-all duration-300 flex items-center justify-between ${
-                              selectedPost?.id === post.id ? 'bg-gray-50' : ''
-                            }`}
+                            className={`w-full text-left p-4 hover:bg-green-200 transition-all duration-300 flex items-center justify-between ${selectedPost?.id === post.id ? 'bg-green-200' : ''}`}
                           >
                             <h4 className="font-medium text-lg">{post.title}</h4>
                             <div 
                               className={`ml-4 p-1 rounded-full transition-transform duration-300 ${
-                                selectedPost?.id === post.id ? 'rotate-180' : ''
+                                selectedPost?.id === post.id ? 'rotate-90' : ''
                               }`}
                             >
-                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                               </svg>
                             </div>
                           </button>
-                          
                           {selectedPost?.id === post.id && (
-                            <div className="border-t bg-gray-50">
-                              <div className="p-3 md:p-4 text-sm md:text-base max-w-xl mx-auto">
-                                <div className="mb-2">
-                                  <h5 className="font-semibold text-base mb-1">Post Content</h5>
-                                  <p className="text-gray-600">{post.body}</p>
+                            <div className="p-4 bg-red-100 text-red-900 border-t border-red-300">
+                              {loadingComments ? (
+                                <div className="flex justify-center py-2">
+                                  <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-red-500"></div>
                                 </div>
-                                <div className="mt-4">
-                                  <div className="flex items-center justify-between mb-2">
-                                    <h5 className="font-semibold text-base">Comments</h5>
-                                    <span className="text-xs text-gray-500">{comments.length} comments</span>
-                                  </div>
-                                  {loadingComments ? (
-                                    <div className="flex justify-center py-2">
-                                      <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500"></div>
+                              ) : (
+                                <div className="space-y-2">
+                                  {comments.map((comment) => (
+                                    <div key={comment.id} className="bg-red-200 text-red-900 p-2 rounded border border-red-300">
+                                      <div className="font-semibold text-red-700">{comment.email}</div>
+                                      <div className="text-red-800 text-sm">{comment.body}</div>
                                     </div>
-                                  ) : (
-                                    <div className="space-y-2 max-h-32 overflow-y-auto pr-1">
-                                      {comments.map((comment) => (
-                                        <div 
-                                          key={comment.id} 
-                                          className="bg-white p-2 rounded border hover:shadow-sm transition-shadow duration-200"
-                                        >
-                                          <div className="flex items-center gap-2 mb-1">
-                                            <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
-                                              <span className="text-blue-600 font-medium text-xs">
-                                                {comment.name.charAt(0)}
-                                              </span>
-                                            </div>
-                                            <div>
-                                              <p className="font-medium text-xs text-gray-900">{comment.name}</p>
-                                              <p className="text-[10px] text-gray-500">{comment.email}</p>
-                                            </div>
-                                          </div>
-                                          <p className="text-xs text-gray-600 ml-8">{comment.body}</p>
-                                        </div>
-                                      ))}
-                                    </div>
+                                  ))}
+                                  {comments.length === 0 && (
+                                    <p className="text-gray-500 italic">No comments found.</p>
                                   )}
                                 </div>
-                              </div>
+                              )}
                             </div>
                           )}
                         </div>
@@ -330,65 +305,41 @@ export default function UserProfile() {
                   ) : (
                     <div className="grid grid-cols-1 gap-4">
                       {posts.map((post) => (
-                        <div key={post.id} className="border rounded-lg overflow-hidden">
+                        <div key={post.id} className="bg-green-100 text-green-900 border border-green-300 rounded-lg overflow-hidden">
                           <button
                             onClick={() => handlePostClick(post)}
-                            className={`w-full text-left p-4 hover:bg-gray-50 transition-all duration-300 flex items-center justify-between ${
-                              selectedPost?.id === post.id ? 'bg-gray-50' : ''
-                            }`}
+                            className={`w-full text-left p-4 hover:bg-green-200 transition-all duration-300 flex items-center justify-between ${selectedPost?.id === post.id ? 'bg-green-200' : ''}`}
                           >
                             <h4 className="font-medium text-lg">{post.title}</h4>
                             <div 
                               className={`ml-4 p-1 rounded-full transition-transform duration-300 ${
-                                selectedPost?.id === post.id ? 'rotate-180' : ''
+                                selectedPost?.id === post.id ? 'rotate-90' : ''
                               }`}
                             >
-                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-500" viewBox="0 0 20 20" fill="currentColor">
-                                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                               </svg>
                             </div>
                           </button>
                           {selectedPost?.id === post.id && (
-                            <div className="border-t bg-gray-50">
-                              <div className="p-3 md:p-4 text-sm md:text-base max-w-xl mx-auto">
-                                <div className="mb-2">
-                                  <h5 className="font-semibold text-base mb-1">Post Content</h5>
-                                  <p className="text-gray-600">{post.body}</p>
+                            <div className="p-4 bg-red-100 text-red-900 border-t border-red-300">
+                              {loadingComments ? (
+                                <div className="flex justify-center py-2">
+                                  <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-red-500"></div>
                                 </div>
-                                <div className="mt-4">
-                                  <div className="flex items-center justify-between mb-2">
-                                    <h5 className="font-semibold text-base">Comments</h5>
-                                    <span className="text-xs text-gray-500">{comments.length} comments</span>
-                                  </div>
-                                  {loadingComments ? (
-                                    <div className="flex justify-center py-2">
-                                      <div className="animate-spin rounded-full h-5 w-5 border-t-2 border-b-2 border-blue-500"></div>
+                              ) : (
+                                <div className="space-y-2">
+                                  {comments.map((comment) => (
+                                    <div key={comment.id} className="bg-red-200 text-red-900 p-2 rounded border border-red-300">
+                                      <div className="font-semibold text-red-700">{comment.email}</div>
+                                      <div className="text-red-800 text-sm">{comment.body}</div>
                                     </div>
-                                  ) : (
-                                    <div className="space-y-2 max-h-32 overflow-y-auto pr-1">
-                                      {comments.map((comment) => (
-                                        <div 
-                                          key={comment.id} 
-                                          className="bg-white p-2 rounded border hover:shadow-sm transition-shadow duration-200"
-                                        >
-                                          <div className="flex items-center gap-2 mb-1">
-                                            <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
-                                              <span className="text-blue-600 font-medium text-xs">
-                                                {comment.name.charAt(0)}
-                                              </span>
-                                            </div>
-                                            <div>
-                                              <p className="font-medium text-xs text-gray-900">{comment.name}</p>
-                                              <p className="text-[10px] text-gray-500">{comment.email}</p>
-                                            </div>
-                                          </div>
-                                          <p className="text-xs text-gray-600 ml-8">{comment.body}</p>
-                                        </div>
-                                      ))}
-                                    </div>
+                                  ))}
+                                  {comments.length === 0 && (
+                                    <p className="text-gray-500 italic">No comments found.</p>
                                   )}
                                 </div>
-                              </div>
+                              )}
                             </div>
                           )}
                         </div>

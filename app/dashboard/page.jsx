@@ -1,59 +1,82 @@
 "use client";
 
-import "./globals.css";
-import { AppSidebar } from "@/components/app-sidebar";
-import { useState } from "react";
-import { Menu } from "lucide-react"; // Icon for menu
+import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
 
-export default function HomePage() {
-  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
+
+// Dynamically import ApexCharts to avoid SSR issues
+const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
+
+export default function DashboardPage() {
+  const [stats, setStats] = useState({
+    users: 0,
+    posts: 0,
+    comments: 0,
+  });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchStats() {
+      setLoading(true);
+      const [usersRes, postsRes, commentsRes] = await Promise.all([
+        fetch("https://jsonplaceholder.typicode.com/users"),
+        fetch("https://jsonplaceholder.typicode.com/posts"),
+        fetch("https://jsonplaceholder.typicode.com/comments"),
+      ]);
+      const users = await usersRes.json();
+      const posts = await postsRes.json();
+      const comments = await commentsRes.json();
+      setStats({
+        users: users.length,
+        posts: posts.length,
+        comments: comments.length,
+      });
+      setLoading(false);
+    }
+    fetchStats();
+  }, []);
+
+  // Example chart data
+  const chartOptions = {
+    chart: { type: "bar" },
+    xaxis: { categories: ["Users", "Posts", "Comments"] },
+    colors: ["#3b82f6", "#22c55e", "#ef4444"], // blue, green, red
+    plotOptions: {
+      bar: {
+        distributed: true,
+      },
+    },
+    dataLabels: {
+      enabled: true,
+      style: {
+        colors: ["#111"]
+      }
+    },
+  };
+  const chartSeries = [{ data: [stats.users, stats.posts, stats.comments] }];
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
-      {/* Mobile Sidebar (Overlay) */}
-      {isSidebarVisible && (
-        <div
-          className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
-          onClick={() => setIsSidebarVisible(false)}
-        >
-          <div
-            className="w-64 bg-white h-full p-4 shadow-lg"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <AppSidebar />
-          </div>
+    <main className="flex flex-1 min-h-screen bg-gray-100 p-4 md:p-10 justify-center items-center">
+  <div className="max-w-4xl w-full flex flex-col items-center">
+    <h1 className="text-2xl font-bold mb-4 text-center">Dashboard</h1>
+    <div className="flex flex-col items-center w-full">
+      <div className="flex flex-col md:flex-row justify-center gap-4 mb-8 w-full">
+        <div className="bg-blue-100 text-blue-800 p-4 rounded shadow text-center font-semibold min-w-[180px]">
+          {loading ? "Loading..." : `Total Users: ${stats.users}`}
         </div>
-      )}
-
-      {/* Desktop Sidebar */}
-      <div className="hidden md:block md:w-64">
-        <AppSidebar />
+        <div className="bg-green-100 text-green-800 p-4 rounded shadow text-center font-semibold min-w-[180px]">
+          {loading ? "Loading..." : `Total Posts: ${stats.posts}`}
+        </div>
+        <div className="bg-red-100 text-red-800 p-4 rounded shadow text-center font-semibold min-w-[180px]">
+          {loading ? "Loading..." : `Total Comments: ${stats.comments}`}
+        </div>
       </div>
-
-      {/* Main Content */}
-      <main className="flex-1 p-4 sm:p-6 md:p-10">
-        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl mx-auto flex flex-col gap-6 p-4 sm:p-6 md:p-10">
-          {/* Header with Mobile Menu Button */}
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-bold text-gray-900">
-              Final Project: Dynamic Web Application using Next.js and Tailwind CSS
-            </h2>
-            {/* Toggle Button (Mobile only) */}
-            <button
-              className="md:hidden p-2 rounded-md bg-gray-200 hover:bg-gray-300"
-              onClick={() => setIsSidebarVisible(true)}
-              aria-label="Toggle Sidebar"
-            >
-              <Menu className="w-5 h-5" />
-            </button>
-          </div>
-
-          {/* Description */}
-          <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed">
-            This project is all about building a modern, responsive website using powerful tools like Next.js and Tailwind CSS. You will practice real-world skills by connecting to an external API and presenting the data cleanly and interactively.
-          </p>
-        </div>
-      </main>
+      <div className="bg-white p-4 rounded shadow w-full">
+        <ApexCharts options={chartOptions} series={chartSeries} type="bar" height={350} />
+      </div>
     </div>
+  </div>
+</main>
+
   );
 }

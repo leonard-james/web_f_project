@@ -10,11 +10,16 @@ export default function PostsPage() {
   const [comments, setComments] = useState([]);
   const [loadingComments, setLoadingComments] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response) => response.json())
-      .then((data) => setPosts(data));
+      .then((data) => {
+        setPosts(data);
+        setLoading(false);
+      });
   }, []);
 
   const fetchComments = async (postId) => {
@@ -47,22 +52,28 @@ export default function PostsPage() {
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-start px-2 md:px-4 lg:px-8 py-6">
       <h2 className="text-4xl font-bold mb-10 text-center w-full">Posts</h2>
-      <div className="w-full max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-10">
-        {currentPosts.map((post) => (
-          <button
-            key={post.id}
-            className={`p-8 border rounded-2xl shadow-sm w-full h-full flex flex-col justify-center items-center transition hover:bg-blue-50 focus:outline-none cursor-pointer ${selectedPost?.id === post.id ? 'bg-blue-50' : ''}`}
-            type="button"
-            onClick={() => {
-              setSelectedPost(post);
-              setModalOpen(true);
-              fetchComments(post.id);
-            }}
-          >
-            <h3 className="text-lg font-semibold mb-2 text-center">{post.title}</h3>
-          </button>
-        ))}
-      </div>
+      {loading ? (
+        <div className="flex justify-center py-8 w-full">
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
+      ) : (
+        <div className="w-full max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 mb-10">
+          {currentPosts.map((post) => (
+            <button
+              key={post.id}
+              className={`bg-green-100 text-green-900 p-8 border border-green-300 rounded-2xl shadow-sm w-full h-full flex flex-col justify-center items-center transition hover:bg-green-200 focus:outline-none cursor-pointer ${selectedPost?.id === post.id ? 'bg-green-200' : ''}`}
+              type="button"
+              onClick={() => {
+                setSelectedPost(post);
+                setModalOpen(true);
+                fetchComments(post.id);
+              }}
+            >
+              <h3 className="text-lg font-semibold mb-2 text-center">{post.title}</h3>
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Modal for Post Details and Comments */}
       {modalOpen && selectedPost && (
@@ -85,11 +96,11 @@ export default function PostsPage() {
             ) : (
               <div className="space-y-4 max-h-60 overflow-y-auto">
                 {comments.map((comment) => (
-                  <div key={comment.id} className="bg-gray-50 p-4 rounded-lg border">
+                  <div key={comment.id} className="bg-red-100 text-red-900 p-4 rounded-lg border border-red-300">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="font-semibold text-blue-600">{comment.email}</span>
+                      <span className="font-semibold text-red-700">{comment.email}</span>
                     </div>
-                    <p className="text-gray-800 text-sm">{comment.body}</p>
+                    <p className="text-red-800 text-sm">{comment.body}</p>
                   </div>
                 ))}
                 {comments.length === 0 && (
