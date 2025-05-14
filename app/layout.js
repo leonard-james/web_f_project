@@ -27,11 +27,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SidebarProvider>
-          <div className="flex min-h-screen">
+          <div className="flex min-h-screen flex-col md:flex-row">
             <AppSidebar variant="inset" />
-            <div className="flex-1">
+            <div className="flex-1 flex flex-col">
               <SiteHeader />
-              <main className="p-6 md:p-8 lg:p-10 flex flex-col items-center w-full">
+              <main className="p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col items-center w-full max-w-[100vw] overflow-x-hidden">
                 {children}
               </main>
             </div>

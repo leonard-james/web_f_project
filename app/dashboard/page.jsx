@@ -1,98 +1,59 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
+import "./globals.css";
+import { AppSidebar } from "@/components/app-sidebar";
+import { useState } from "react";
+import { Menu } from "lucide-react"; // Icon for menu
 
-// Dynamically import ReactApexChart to avoid SSR issues
-const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
-
-export default function Dashboard() {
-  const [userCount, setUserCount] = useState(0);
-  const [postCount, setPostCount] = useState(0);
-  const [commentCount, setCommentCount] = useState(0);
-
-  // Fetch total number of users
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-      .then((response) => response.json())
-      .then((data) => setUserCount(data.length));
-  }, []);
-
-  // Fetch total number of posts
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-      .then((response) => response.json())
-      .then((data) => setPostCount(data.length));
-  }, []);
-
-  // Fetch total number of comments
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/comments")
-      .then((response) => response.json())
-      .then((data) => setCommentCount(data.length));
-  }, []);
-
-  // Chart configuration
-  const chartOptions = {
-    chart: {
-      type: "bar",
-      height: 400,
-    },
-    plotOptions: {
-      bar: {
-        horizontal: false,
-        columnWidth: "55%",
-        endingShape: "rounded",
-        distributed: true,
-      },
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    xaxis: {
-      categories: ["Users", "Posts", "Comments"],
-    },
-    colors: ["#2563eb", "#22c55e", "#ef4444"], // Blue, Green, Red
-  };
-
-  const chartSeries = [
-    {
-      name: "Count",
-      data: [userCount, postCount, commentCount], // Data for the chart
-    },
-  ];
+export default function HomePage() {
+  const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
   return (
-    <main className="ml-60 flex flex-col items-center min-h-screen w-full bg-white">
-      <div className="w-full max-w-4xl mx-auto px-4 md:px-8 py-10 flex flex-col items-center">
-        <h1 className="text-4xl font-bold mb-10 text-center w-full">Dashboard</h1>
-        <div className="flex flex-col md:flex-row gap-6 mb-10 w-full justify-center">
-          <div className="flex-1 p-6 border rounded shadow text-center bg-blue-600 text-white">
-            <h2 className="text-lg font-semibold">Total Users</h2>
-            <p className="text-2xl font-bold">{userCount}</p>
-          </div>
-          <div className="flex-1 p-6 border rounded shadow text-center bg-green-600 text-white">
-            <h2 className="text-lg font-semibold">Total Posts</h2>
-            <p className="text-2xl font-bold">{postCount}</p>
-          </div>
-          <div className="flex-1 p-6 border rounded shadow text-center bg-red-600 text-white">
-            <h2 className="text-lg font-semibold">Total Comments</h2>
-            <p className="text-2xl font-bold">{commentCount}</p>
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
+      {/* Mobile Sidebar (Overlay) */}
+      {isSidebarVisible && (
+        <div
+          className="fixed inset-0 z-40 bg-black bg-opacity-50 md:hidden"
+          onClick={() => setIsSidebarVisible(false)}
+        >
+          <div
+            className="w-64 bg-white h-full p-4 shadow-lg"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <AppSidebar />
           </div>
         </div>
-        <div className="p-6 border rounded shadow w-full">
-          <h2 className="text-lg font-semibold mb-4 w-full text-center">Visualization</h2>
-          <div className="w-full" style={{ minHeight: 420 }}>
-            <ReactApexChart
-              options={chartOptions}
-              series={chartSeries}
-              type="bar"
-              height={400}
-              width="100%"
-            />
-          </div>
-        </div>
+      )}
+
+      {/* Desktop Sidebar */}
+      <div className="hidden md:block md:w-64">
+        <AppSidebar />
       </div>
-    </main>
+
+      {/* Main Content */}
+      <main className="flex-1 p-4 sm:p-6 md:p-10">
+        <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl mx-auto flex flex-col gap-6 p-4 sm:p-6 md:p-10">
+          {/* Header with Mobile Menu Button */}
+          <div className="flex items-center justify-between">
+            <h2 className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-bold text-gray-900">
+              Final Project: Dynamic Web Application using Next.js and Tailwind CSS
+            </h2>
+            {/* Toggle Button (Mobile only) */}
+            <button
+              className="md:hidden p-2 rounded-md bg-gray-200 hover:bg-gray-300"
+              onClick={() => setIsSidebarVisible(true)}
+              aria-label="Toggle Sidebar"
+            >
+              <Menu className="w-5 h-5" />
+            </button>
+          </div>
+
+          {/* Description */}
+          <p className="text-gray-700 text-sm sm:text-base md:text-lg leading-relaxed">
+            This project is all about building a modern, responsive website using powerful tools like Next.js and Tailwind CSS. You will practice real-world skills by connecting to an external API and presenting the data cleanly and interactively.
+          </p>
+        </div>
+      </main>
+    </div>
   );
 }
