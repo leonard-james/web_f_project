@@ -1,82 +1,90 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
+import { AppSidebar } from "@/components/app-sidebar";
+import { Menu } from "lucide-react"; // Icon for menu
 
+// Dynamically import ReactApexChart to avoid SSR issues
+const ReactApexChart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-// Dynamically import ApexCharts to avoid SSR issues
-const ApexCharts = dynamic(() => import("react-apexcharts"), { ssr: false });
+export default function Dashboard() {
+  const [userCount, setUserCount] = useState(0);
+  const [postCount, setPostCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
 
-export default function DashboardPage() {
-  const [stats, setStats] = useState({
-    users: 0,
-    posts: 0,
-    comments: 0,
-  });
-  const [loading, setLoading] = useState(true);
-
+  // Fetch total number of users
   useEffect(() => {
-    async function fetchStats() {
-      setLoading(true);
-      const [usersRes, postsRes, commentsRes] = await Promise.all([
-        fetch("https://jsonplaceholder.typicode.com/users"),
-        fetch("https://jsonplaceholder.typicode.com/posts"),
-        fetch("https://jsonplaceholder.typicode.com/comments"),
-      ]);
-      const users = await usersRes.json();
-      const posts = await postsRes.json();
-      const comments = await commentsRes.json();
-      setStats({
-        users: users.length,
-        posts: posts.length,
-        comments: comments.length,
-      });
-      setLoading(false);
-    }
-    fetchStats();
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((data) => setUserCount(data.length));
   }, []);
 
-  // Example chart data
+  // Fetch total number of posts
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then((response) => response.json())
+      .then((data) => setPostCount(data.length));
+  }, []);
+
+  // Fetch total number of comments
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/comments")
+      .then((response) => response.json())
+      .then((data) => setCommentCount(data.length));
+  }, []);
+
+  // Chart configuration
   const chartOptions = {
-    chart: { type: "bar" },
-    xaxis: { categories: ["Users", "Posts", "Comments"] },
-    colors: ["#3b82f6", "#22c55e", "#ef4444"], // blue, green, red
+    chart: {
+      type: "bar",
+      height: 400,
+    },
     plotOptions: {
       bar: {
+        horizontal: false,
+        columnWidth: "55%",
+        endingShape: "rounded",
         distributed: true,
       },
     },
     dataLabels: {
-      enabled: true,
-      style: {
-        colors: ["#111"]
-      }
+      enabled: false,
     },
+    xaxis: {
+      categories: ["Users", "Posts", "Comments"],
+    },
+    colors: ["#2563eb", "#22c55e", "#ef4444"], // Blue, Green, Red
   };
-  const chartSeries = [{ data: [stats.users, stats.posts, stats.comments] }];
+
+  const chartSeries = [
+    {
+      name: "Count",
+      data: [userCount, postCount, commentCount], // Data for the chart
+    },
+  ];
 
   return (
-    <main className="flex flex-1 min-h-screen bg-gray-100 p-4 md:p-10 justify-center items-center">
-  <div className="max-w-4xl w-full flex flex-col items-center">
-    <h1 className="text-2xl font-bold mb-4 text-center">Dashboard</h1>
-    <div className="flex flex-col items-center w-full">
-      <div className="flex flex-col md:flex-row justify-center gap-4 mb-8 w-full">
-        <div className="bg-blue-100 text-blue-800 p-4 rounded shadow text-center font-semibold min-w-[180px]">
-          {loading ? "Loading..." : `Total Users: ${stats.users}`}
-        </div>
-        <div className="bg-green-100 text-green-800 p-4 rounded shadow text-center font-semibold min-w-[180px]">
-          {loading ? "Loading..." : `Total Posts: ${stats.posts}`}
-        </div>
-        <div className="bg-red-100 text-red-800 p-4 rounded shadow text-center font-semibold min-w-[180px]">
-          {loading ? "Loading..." : `Total Comments: ${stats.comments}`}
+    <main className="flex flex-1 w-full h-full justify-center items-center bg-gray-100">
+      <div className="max-w-4xl w-full p-4 md:p-10 bg-white rounded shadow flex flex-col items-center">
+        <h1 className="text-2xl font-bold mb-4 text-center">Dashboard</h1>
+        <div className="flex flex-col items-center w-full">
+          <div className="flex flex-col md:flex-row justify-center gap-4 mb-8 w-full">
+            <div className="bg-blue-100 text-blue-800 p-4 rounded shadow text-center font-semibold min-w-[180px]">
+              Total Users: {userCount}
+            </div>
+            <div className="bg-green-100 text-green-800 p-4 rounded shadow text-center font-semibold min-w-[180px]">
+              Total Posts: {postCount}
+            </div>
+            <div className="bg-red-100 text-red-800 p-4 rounded shadow text-center font-semibold min-w-[180px]">
+              Total Comments: {commentCount}
+            </div>
+          </div>
+          <div className="w-full">
+            <ReactApexChart options={chartOptions} series={chartSeries} type="bar" height={350} />
+          </div>
         </div>
       </div>
-      <div className="bg-white p-4 rounded shadow w-full">
-        <ApexCharts options={chartOptions} series={chartSeries} type="bar" height={350} />
-      </div>
-    </div>
-  </div>
-</main>
-
+    </main>
   );
 }
