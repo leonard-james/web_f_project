@@ -31,8 +31,8 @@ Make sure you have the following installed:
 We started with a fresh Next.js app using the App Router:
 
 ```bash
-npx create-next-app@latest webtech-final-project
-cd webtech-final-project
+npx create-next-app@latest webtech_f_project
+cd webtech_f_project
 
 We followed the official Tailwind setup:
 npm install -D tailwindcss postcss autoprefixer
