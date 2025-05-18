@@ -75,3 +75,5 @@ Leonard James Gobris	Made the nextjs app template and connects it to GitHub repo
 
 🌐 Live Demo
 🔗 Deployed on Vercel: https://viewpoint-sage.vercel.app/
+
+Video Presentation Link : https://drive.google.com/file/d/10vFncQvvoQdMXsHAzuqt18-V5qCAZxP2/view?usp=drivesdk
