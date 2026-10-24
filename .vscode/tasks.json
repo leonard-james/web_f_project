@@ -1,0 +1,33 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Inspect Git upstream configuration",
+			"type": "shell",
+			"command": "git branch -vv",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Inspect branch remote settings",
+			"type": "shell",
+			"command": "git config --get-all branch.main.remote; git config --get-all branch.main.merge; git remote -v",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Fix main branch upstream",
+			"type": "shell",
+			"command": "git config --unset-all branch.main.merge; git config --add branch.main.merge refs/heads/main; git branch -vv",
+			"isBackground": false,
+			"problemMatcher": []
+		},
+		{
+			"label": "Check remote branch tips",
+			"type": "shell",
+			"command": "git --no-pager log --oneline --decorate --graph --all -12; git ls-remote --heads origin main master",
+			"isBackground": false,
+			"problemMatcher": []
+		}
+	]
+}
