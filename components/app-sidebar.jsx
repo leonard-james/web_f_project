@@ -39,7 +39,9 @@ export function AppSidebar(props) {
         </div>
       </SidebarHeader>
       <SidebarContent className="px-3 py-3">
-        <p className="mb-3 px-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">Workspace</p>
+        <p className="mb-3 px-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">
+          Workspace
+        </p>
         <SidebarMenu>
           {navMain.map((item) => (
             <SidebarMenuItem key={item.title}>
@@ -48,7 +50,11 @@ export function AppSidebar(props) {
                 isActive={pathname === item.url}
                 className="mb-1 h-11 w-full justify-start gap-3 rounded-xl px-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-950 data-[active=true]:bg-slate-950 data-[active=true]:text-white data-[active=true]:hover:bg-slate-800 data-[active=true]:hover:text-white"
               >
-                <Link href={item.url} aria-current={pathname === item.url ? "page" : undefined} onClick={() => setOpenMobile(false)}>
+                <Link
+                  href={item.url}
+                  aria-current={pathname === item.url ? "page" : undefined}
+                  onClick={() => setOpenMobile(false)}
+                >
                   <item.icon className="h-[18px] w-[18px]" />
                   <span>{item.title}</span>
                 </Link>

@@ -16,6 +16,7 @@ const destinations = [
     description: "Browse community profiles, contact details, and each person's posts.",
     icon: UsersRound,
     tone: "bg-blue-50 text-blue-700",
+    count: "01",
   },
   {
     href: "/posts",
@@ -24,6 +25,7 @@ const destinations = [
     description: "Discover stories from the community and open a post to read its comments.",
     icon: FileText,
     tone: "bg-violet-50 text-violet-700",
+    count: "02",
   },
   {
     href: "/dashboard",
@@ -32,6 +34,7 @@ const destinations = [
     description: "Get a quick view of the data powering the ViewPoint experience.",
     icon: ChartNoAxesColumnIncreasing,
     tone: "bg-emerald-50 text-emerald-700",
+    count: "03",
   },
 ];
 
@@ -46,48 +49,71 @@ export default function HomePage() {
             <Sparkles className="h-4 w-4 text-sky-300" />
             A clearer view of your community
           </div>
-          <h2 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
+          <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl lg:text-6xl">
             Welcome to <span className="text-sky-300">ViewPoint.</span>
-          </h2>
+          </h1>
           <p className="mt-5 max-w-xl text-base leading-7 text-slate-300 sm:text-lg">
             Explore people, ideas, and the conversations that bring them together — all in one place.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link href="/user_profile" className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-sky-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300">
-              Explore profiles <ArrowRight className="h-4 w-4" />
+            <Link
+              href="/user_profile"
+              className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-semibold text-slate-950 transition hover:bg-sky-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
+            >
+              Explore profiles
+              <ArrowRight className="h-4 w-4" />
             </Link>
-            <Link href="/posts" className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/20 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white">
+            <Link
+              href="/posts"
+              className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-white/20 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white"
+            >
               Browse posts
             </Link>
           </div>
         </div>
         <div className="mt-12 flex items-center gap-3 border-t border-white/10 pt-6 text-sm text-slate-300 sm:absolute sm:bottom-10 sm:right-10 sm:mt-0 sm:border-0 sm:pt-0">
-          <span className="grid h-10 w-10 place-items-center rounded-xl bg-white/10">
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-white/10">
             <MapPin className="h-5 w-5 text-sky-300" />
           </span>
-          <span><span className="block font-medium text-white">People & places</span><span>Connected through shared stories</span></span>
+          <span>
+            <span className="block font-medium text-white">People & places</span>
+            <span>Connected through shared stories</span>
+          </span>
         </div>
       </section>
 
       <section aria-labelledby="discover-heading">
         <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">Your workspace</p>
-            <h2 id="discover-heading" className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">Where would you like to go?</h2>
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">
+              Your workspace
+            </p>
+            <h2 id="discover-heading" className="mt-2 text-2xl font-semibold tracking-tight text-slate-950">
+              Where would you like to go?
+            </h2>
           </div>
-          <p className="max-w-sm text-sm leading-6 text-slate-500">Choose a space to explore. Your next discovery is just a click away.</p>
+          <p className="max-w-sm text-sm leading-6 text-slate-500">
+            Choose a space to explore. Your next discovery is just a click away.
+          </p>
         </div>
         <div className="grid gap-4 md:grid-cols-3">
-          {destinations.map(({ href, label, title, description, icon: Icon, tone }, index) => (
-            <Link key={href} href={href} className="group rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2">
+          {destinations.map(({ href, label, title, description, icon: Icon, tone, count }) => (
+            <Link
+              key={href}
+              href={href}
+              className="group min-w-0 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition duration-200 hover:-translate-y-1 hover:border-slate-300 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+            >
               <div className="flex items-center justify-between">
-                <span className={`grid h-12 w-12 place-items-center rounded-2xl ${tone}`}><Icon className="h-5 w-5" /></span>
-                <span className="text-xs font-semibold tracking-widest text-slate-400">{String(index + 1).padStart(2, "0")}</span>
+                <span className={`grid h-12 w-12 place-items-center rounded-2xl ${tone}`}>
+                  <Icon className="h-5 w-5" />
+                </span>
+                <span className="text-xs font-semibold tracking-widest text-slate-400">{count}</span>
               </div>
               <h3 className="mt-6 text-lg font-semibold text-slate-950">{title}</h3>
               <p className="mt-2 min-h-12 text-sm leading-6 text-slate-500">{description}</p>
               <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-blue-700">
-                {label}<ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                {label}
+                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </span>
             </Link>
           ))}
