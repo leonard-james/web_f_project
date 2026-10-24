@@ -1,8 +1,8 @@
 "use client";
 
-import * as React from "react";
-import { useRouter } from "next/navigation";
-import { X, EyeIcon, FileTextIcon, UsersIcon, LayoutDashboardIcon, HomeIcon } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { EyeIcon, FileTextIcon, UsersIcon, LayoutDashboardIcon, HomeIcon } from "lucide-react";
 
 import {
   Sidebar,
@@ -11,80 +11,47 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
 
-const data = {
-  navMain: [
-    {
-      title: "Home",
-      url: "/",
-      icon: HomeIcon,
-      color: "bg-yellow-500 hover:bg-yellow-600 text-white",
-    },
-    {
-      title: "Users",
-      url: "/user_profile",
-      icon: UsersIcon,
-      color: "bg-blue-500 hover:bg-blue-600 text-white",
-    },
-    {
-      title: "Posts",
-      url: "/posts",
-      icon: FileTextIcon,
-      color: "bg-green-500 hover:bg-green-600 text-white",
-    },
-    {
-      title: "Dashboard",
-      url: "/dashboard",
-      icon: LayoutDashboardIcon,
-      color: "bg-purple-500 hover:bg-purple-600 text-white",
-    },
-  ],
-};
+const navMain = [
+  { title: "Home", url: "/", icon: HomeIcon },
+  { title: "Users", url: "/user_profile", icon: UsersIcon },
+  { title: "Posts", url: "/posts", icon: FileTextIcon },
+  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboardIcon },
+];
 
 export function AppSidebar(props) {
-  const router = useRouter();
-
-  const handleNavigation = (url) => {
-    router.push(url);
-    // onClose(); // Remove or comment this out if not using mobile overlay
-  };
+  const pathname = usePathname();
+  const { setOpenMobile } = useSidebar();
 
   return (
-    <Sidebar {...props} className={`bg-gray-200 ${props.className || ''}`}>
-      <SidebarHeader className="flex items-center justify-between p-4">
-        <div className="flex gap-3">
-          <EyeIcon className="h-6 w-6 shrink-0" />
-          <div className="flex flex-col">
-            <span className="text-base font-semibold leading-tight">ViewPoint</span>
-            <p className="text-sm text-gray-500 leading-normal">
-              User Profiles, Posts & Insights
-            </p>
+    <Sidebar {...props} className={`border-r border-slate-200 bg-white ${props.className || ""}`}>
+      <SidebarHeader className="px-5 py-6">
+        <div className="flex items-center gap-3">
+          <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-slate-950 text-white shadow-sm">
+            <EyeIcon className="h-5 w-5" />
+          </span>
+          <div className="flex min-w-0 flex-col">
+            <span className="text-base font-semibold leading-tight tracking-tight text-slate-950">ViewPoint</span>
+            <p className="mt-1 truncate text-xs text-slate-500">People, posts & insights</p>
           </div>
         </div>
-
-        {/* Close Button for Mobile */}
-        <button
-          className="md:hidden text-gray-600 hover:text-black"
-          onClick={props.onClose}
-          aria-label="Close Sidebar"
-        >
-          <X className="w-5 h-5" />
-        </button>
       </SidebarHeader>
-
-      <div className="my-4" />
-
-      <SidebarContent className="p-4">
+      <SidebarContent className="px-3 py-3">
+        <p className="mb-3 px-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-slate-400">Workspace</p>
         <SidebarMenu>
-          {data.navMain.map((item) => (
+          {navMain.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton
-                className={`w-full flex items-center gap-2 justify-start shadow-md hover:shadow-lg rounded-lg p-3 border-2 border-black mb-3 ${item.color}`}
-                onClick={() => handleNavigation(item.url)}
+                asChild
+                isActive={pathname === item.url}
+                className="mb-1 h-11 w-full justify-start gap-3 rounded-xl px-3 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-950 data-[active=true]:bg-slate-950 data-[active=true]:text-white data-[active=true]:hover:bg-slate-800 data-[active=true]:hover:text-white"
               >
-                <item.icon className="h-5 w-5" />
-                <span>{item.title}</span>
+                <Link href={item.url} aria-current={pathname === item.url ? "page" : undefined} onClick={() => setOpenMobile(false)}>
+                  <item.icon className="h-[18px] w-[18px]" />
+                  <span>{item.title}</span>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
